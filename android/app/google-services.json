@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "719044997684",
+    "project_id": "divinecampus-bead3",
+    "storage_bucket": "divinecampus-bead3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719044997684:android:9492ca812d297092b5d061",
+        "android_client_info": {
+          "package_name": "com.divine.campus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC23hLJsLh8TQvrfrkbWfELqZftHhlvqD0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
