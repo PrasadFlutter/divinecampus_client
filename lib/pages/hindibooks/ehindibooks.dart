@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lawexample/api_manager/api_response.dart';
+import 'package:lawexample/pages/more.dart';
 import 'package:lawexample/pages/profile_page.dart';
 import '../../Model/BookModel.dart';
 import '../detailed_ebook_screen.dart';
@@ -106,6 +107,14 @@ class hindibooksPageState extends State<hindibooksPage> {
           }
           if (i == 2) {}
           if (i == 3) {}
+          if (i == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MoreOptionsScreen(),
+              ),
+            );
+          }
         },
       ),
       body: SafeArea(

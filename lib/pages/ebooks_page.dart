@@ -1,6 +1,7 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:lawexample/api_manager/api_response.dart';
+import 'package:lawexample/pages/more.dart';
 import 'package:lawexample/pages/profile_page.dart';
 
 import '../Model/BookModel.dart';
@@ -111,6 +112,14 @@ class ebooksPageState extends State<ebooksPage> {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ContactPage()),
+            );
+          }
+          if (i == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MoreOptionsScreen(),
+              ),
             );
           }
         },

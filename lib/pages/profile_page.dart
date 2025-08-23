@@ -16,6 +16,7 @@ import 'package:lawexample/pages/Quotation/quotation.dart';
 import 'package:lawexample/pages/Video/video.dart';
 import 'package:lawexample/pages/contact_page.dart';
 import 'package:lawexample/pages/ebooks_page.dart';
+import 'package:lawexample/pages/more.dart';
 
 import '../Model/VideoModel.dart';
 import '../api_manager/api_response.dart';
@@ -143,6 +144,14 @@ class _ProfilePageState extends State<ProfilePage> {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ContactPage()),
+            );
+          }
+          if (i == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MoreOptionsScreen(),
+              ),
             );
           }
         },
