@@ -16,11 +16,35 @@ class MoreOptionsScreen extends StatelessWidget {
     final items = [
       {
         "title": "Registration",
-        "route": "registration",
         "icon": Icons.app_registration,
+        "isPage": true,
+        "page": (context) => RegistrationPage(),
       },
-      {"title": "About Us", "route": "about", "icon": Icons.info_outline},
-      {"title": "Contact Us", "route": "contact", "icon": Icons.phone_outlined},
+      {
+        "title": "About Us",
+        "icon": Icons.info_outline,
+        "url": "https://divinecampus.com/aboutdivinecampus.aspx",
+      },
+      // {
+      //   "title": "Contact Us",
+      //   "icon": Icons.phone_outlined,
+      //   "url": "https://divinecampus.com/contactDevinecampus.aspx",
+      // },
+      {
+        "title": "Religion",
+        "icon": Icons.account_balance,
+        "url": "https://divinecampus.com/Religion/Home.aspx",
+      },
+      {
+        "title": "Spiritual",
+        "icon": Icons.self_improvement,
+        "url": "https://divinecampus.com/spritual/Home.aspx",
+      },
+      {
+        "title": "Greetings",
+        "icon": Icons.card_giftcard,
+        "url": "https://divinecampus.com/Greetings/Home.aspx",
+      },
     ];
 
     return Scaffold(
@@ -124,32 +148,18 @@ class MoreOptionsScreen extends StatelessWidget {
                   color: Colors.grey,
                 ),
                 onTap: () {
-                  if (item["route"] == "registration") {
+                  if (item["isPage"] == true) {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => RegistrationPage(),
-                      ),
+                      MaterialPageRoute(builder: item["page"] as WidgetBuilder),
                     );
-                  } else if (item["route"] == "about") {
+                  } else if (item["url"] != null) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const WebViewScreen(
-                          url:
-                              "https://divinecampus.com/aboutdivinecampus.aspx",
-                          title: "About Us",
-                        ),
-                      ),
-                    );
-                  } else if (item["route"] == "contact") {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const WebViewScreen(
-                          url:
-                              "https://divinecampus.com/contactDevinecampus.aspx",
-                          title: "Contact Us",
+                        builder: (_) => WebViewScreen(
+                          url: item["url"].toString(),
+                          title: item["title"].toString(),
                         ),
                       ),
                     );
