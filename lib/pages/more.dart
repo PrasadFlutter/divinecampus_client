@@ -2,7 +2,7 @@
 
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:lawexample/pages/about_us_page.dart';
 import 'package:lawexample/pages/contact_page.dart';
 import 'package:lawexample/pages/ebooks_page.dart';
 import 'package:lawexample/pages/profile_page.dart';
@@ -23,7 +23,8 @@ class MoreOptionsScreen extends StatelessWidget {
       {
         "title": "About Us",
         "icon": Icons.info_outline,
-        "url": "https://divinecampus.com/aboutdivinecampus.aspx",
+        "isPage": true,
+        "page": (context) => const AboutUsPage(),
       },
       // {
       //   "title": "Contact Us",
@@ -53,14 +54,14 @@ class MoreOptionsScreen extends StatelessWidget {
           "More",
           style: TextStyle(
             fontFamily: 'Jost',
-            color: Colors.blue,
+            color: Color(0xffe00040),
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
-        elevation: 2,
-        iconTheme: const IconThemeData(color: Colors.blue),
+        elevation: 0.5,
+        iconTheme: const IconThemeData(color: Color(0xffe00040)),
       ),
       bottomNavigationBar: ConvexAppBar(
         color: const Color(0xffe00040),
@@ -111,80 +112,126 @@ class MoreOptionsScreen extends StatelessWidget {
           }
         },
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: ListView.separated(
-          itemCount: items.length,
-          separatorBuilder: (_, __) => const SizedBox(height: 12),
-          itemBuilder: (context, index) {
-            final item = items[index];
-            return Card(
-              elevation: 3,
-              shadowColor: Colors.grey.withOpacity(0.3),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+      body: ListView(
+        padding: const EdgeInsets.all(12),
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.pink.shade50, Colors.white],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              child: ListTile(
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                leading: Icon(
-                  item["icon"] as IconData,
-                  color: Colors.blue,
-                  size: 28,
-                ),
-                title: Text(
-                  item["title"].toString(),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'Jost',
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.pink.shade100),
+            ),
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Container(
+                  width: 56,
+                  height: 56,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(14),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.07),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
+                  child: Image.asset("assets/images/splash/splashlogo.png"),
                 ),
-                trailing: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                  color: Colors.grey,
-                ),
-                onTap: () {
-                  if (item["isPage"] == true) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: item["page"] as WidgetBuilder),
-                    );
-                  } else if (item["url"] != null) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => WebViewScreen(
-                          url: item["url"].toString(),
-                          title: item["title"].toString(),
+                const SizedBox(width: 12),
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Explore More",
+                        style: TextStyle(
+                          fontFamily: 'Jost',
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xffe00040),
                         ),
                       ),
-                    );
-                  }
-                },
+                      SizedBox(height: 2),
+                      Text(
+                        "Quick access to app information and extra sections",
+                        style: TextStyle(
+                          fontFamily: 'Jost',
+                          fontSize: 13,
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          ...List.generate(items.length, (index) {
+            final item = items[index];
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Card(
+                margin: EdgeInsets.zero,
+                elevation: 2,
+                shadowColor: Colors.black.withOpacity(0.08),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: ListTile(
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
+                  leading: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.pink.shade50,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Icon(
+                      item["icon"] as IconData,
+                      color: const Color(0xffe00040),
+                      size: 22,
+                    ),
+                  ),
+                  title: Text(
+                    item["title"].toString(),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Jost',
+                    ),
+                  ),
+                  trailing: const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 16,
+                    color: Colors.grey,
+                  ),
+                  onTap: () {
+                    if (item["isPage"] == true) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: item["page"] as WidgetBuilder,
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
             );
-          },
-        ),
+          }),
+        ],
       ),
-    );
-  }
-}
-
-class WebViewScreen extends StatelessWidget {
-  final String url;
-  final String title;
-
-  const WebViewScreen({super.key, required this.url, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: InAppWebView(initialUrlRequest: URLRequest(url: WebUri(url))),
     );
   }
 }
