@@ -6,7 +6,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:lawexample/pages/contact_page.dart';
 import 'package:lawexample/pages/ebooks_page.dart';
 import 'package:lawexample/pages/profile_page.dart';
-import 'package:lawexample/pages/registration_page.dart';
+// import 'package:lawexample/pages/registration_page.dart';
 
 class MoreOptionsScreen extends StatelessWidget {
   const MoreOptionsScreen({super.key});
@@ -14,12 +14,12 @@ class MoreOptionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = [
-      {
-        "title": "Registration",
-        "icon": Icons.app_registration,
-        "isPage": true,
-        "page": (context) => RegistrationPage(),
-      },
+      // {
+      //   "title": "Registration",
+      //   "icon": Icons.app_registration,
+      //   "isPage": true,
+      //   "page": (context) => RegistrationPage(),
+      // },
       {
         "title": "About Us",
         "icon": Icons.info_outline,
@@ -30,21 +30,21 @@ class MoreOptionsScreen extends StatelessWidget {
       //   "icon": Icons.phone_outlined,
       //   "url": "https://divinecampus.com/contactDevinecampus.aspx",
       // },
-      {
-        "title": "Religion",
-        "icon": Icons.account_balance,
-        "url": "https://divinecampus.com/Religion/Home.aspx",
-      },
-      {
-        "title": "Spiritual",
-        "icon": Icons.self_improvement,
-        "url": "https://divinecampus.com/spritual/Home.aspx",
-      },
-      {
-        "title": "Greetings",
-        "icon": Icons.card_giftcard,
-        "url": "https://divinecampus.com/Greetings/Home.aspx",
-      },
+      // {
+      //   "title": "Religion",
+      //   "icon": Icons.account_balance,
+      //   "url": "https://divinecampus.com/Religion/Home.aspx",
+      // },
+      // {
+      //   "title": "Spiritual",
+      //   "icon": Icons.self_improvement,
+      //   "url": "https://divinecampus.com/spritual/Home.aspx",
+      // },
+      // {
+      //   "title": "Greetings",
+      //   "icon": Icons.card_giftcard,
+      //   "url": "https://divinecampus.com/Greetings/Home.aspx",
+      // },
     ];
 
     return Scaffold(
