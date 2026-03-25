@@ -68,8 +68,31 @@ class AboutUsPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    'A spiritual learning and values-focused platform for daily inspiration, knowledge, and cultural enrichment.',
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        const TextSpan(
+                          text:
+                              'Divine Campus is the most comprehensive online resource for spiritual processes in Human Life and in the Cosmos. This multifaith and interspiritual website, founded by ',
+                        ),
+                        const TextSpan(
+                          text: 'Shree Anand Krishna',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const TextSpan(
+                          text:
+                              ', is devoted to resources for spiritual journeys, with a mission to help people find and walk a spiritual path that instils comfort, hope, strength and happiness for people who are exploring their own faith or are curious about others, huge number of poems written by ',
+                        ),
+                        const TextSpan(
+                          text: 'Shree Anand Krishna',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const TextSpan(
+                          text:
+                              ' which cover a broad range of topics under the umbrella of Divinity and Spirituality, awakening to absolute awareness, theology of God, the lives and teachings of sages and saints, articles on our mystical traditions, world religions, powers of consciousness and meditation, sacred relationships, eternal life and more.',
+                        ),
+                      ],
+                    ),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Jost',
@@ -81,26 +104,26 @@ class AboutUsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            _InfoCard(
-              title: 'Who We Are',
-              description:
-                  'Divine Campus offers curated spiritual and educational content including books, symbols, quotations, music, videos, and daily features.',
-              icon: Icons.groups_outlined,
-            ),
-            const SizedBox(height: 10),
-            _InfoCard(
-              title: 'Our Vision',
-              description:
-                  'To make value-based wisdom and devotional knowledge accessible through a simple and engaging mobile experience.',
-              icon: Icons.visibility_outlined,
-            ),
-            const SizedBox(height: 10),
-            _InfoCard(
-              title: 'Contact',
-              description:
-                  'R-257, Lower Ground Floor\nGreater Kailash - I, New Delhi - 110048\nWebsite: divinecampus.com',
-              icon: Icons.location_on_outlined,
-            ),
+            // _InfoCard(
+            //   title: 'Who We Are',
+            //   description:
+            //       'Divine Campus offers curated spiritual and educational content including books, symbols, quotations, music, videos, and daily features.',
+            //   icon: Icons.groups_outlined,
+            // ),
+            // const SizedBox(height: 10),
+            // _InfoCard(
+            //   title: 'Our Vision',
+            //   description:
+            //       'To make value-based wisdom and devotional knowledge accessible through a simple and engaging mobile experience.',
+            //   icon: Icons.visibility_outlined,
+            // ),
+            // const SizedBox(height: 10),
+            // _InfoCard(
+            //   title: 'Contact',
+            //   description:
+            //       'R-257, Lower Ground Floor\nGreater Kailash - I, New Delhi - 110048\nWebsite: divinecampus.com',
+            //   icon: Icons.location_on_outlined,
+            // ),
           ],
         ),
       ),
@@ -108,66 +131,66 @@ class AboutUsPage extends StatelessWidget {
   }
 }
 
-class _InfoCard extends StatelessWidget {
-  final String title;
-  final String description;
-  final IconData icon;
+// class _InfoCard extends StatelessWidget {
+//   final String title;
+//   final String description;
+//   final IconData icon;
 
-  const _InfoCard({
-    required this.title,
-    required this.description,
-    required this.icon,
-  });
+//   const _InfoCard({
+//     required this.title,
+//     required this.description,
+//     required this.icon,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.zero,
-      elevation: 2,
-      shadowColor: Colors.black.withOpacity(0.08),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-      child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.pink.shade50,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(icon, color: const Color(0xffe00040), size: 20),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontFamily: 'Jost',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    description,
-                    style: TextStyle(
-                      fontFamily: 'Jost',
-                      fontSize: 13.5,
-                      height: 1.4,
-                      color: Colors.grey.shade700,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       margin: EdgeInsets.zero,
+//       elevation: 2,
+//       shadowColor: Colors.black.withOpacity(0.08),
+//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+//       child: Padding(
+//         padding: const EdgeInsets.all(14),
+//         child: Row(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Container(
+//               padding: const EdgeInsets.all(8),
+//               decoration: BoxDecoration(
+//                 color: Colors.pink.shade50,
+//                 borderRadius: BorderRadius.circular(10),
+//               ),
+//               child: Icon(icon, color: const Color(0xffe00040), size: 20),
+//             ),
+//             const SizedBox(width: 10),
+//             Expanded(
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(
+//                     title,
+//                     style: const TextStyle(
+//                       fontFamily: 'Jost',
+//                       fontSize: 16,
+//                       fontWeight: FontWeight.w700,
+//                     ),
+//                   ),
+//                   const SizedBox(height: 6),
+//                   Text(
+//                     description,
+//                     style: TextStyle(
+//                       fontFamily: 'Jost',
+//                       fontSize: 13.5,
+//                       height: 1.4,
+//                       color: Colors.grey.shade700,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
