@@ -1,12 +1,14 @@
 // ignore_for_file: unused_field
 
 import 'dart:async';
+import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:lawexample/NotificationService/local_notification.dart';
 import 'package:lawexample/pages/profile_page.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:in_app_update/in_app_update.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key, required this.title}) : super(key: key);
@@ -20,6 +22,9 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   bool _isVisible = false;
+  bool _isForceUpdateVisible = false;
+  AppUpdateInfo? _updateInfo;
+
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 2),
     vsync: this,
@@ -29,8 +34,6 @@ class _SplashScreenState extends State<SplashScreen>
     parent: _controller,
     curve: Curves.easeOut,
   );
-
-  AppUpdateInfo? _updateInfo;
 
   @override
   void dispose() {
@@ -44,15 +47,17 @@ class _SplashScreenState extends State<SplashScreen>
     _notificationInitialize();
     _checkForUpdate();
 
-    // Show fade after 5ms
     Timer(const Duration(milliseconds: 5), () {
-      setState(() => _isVisible = true);
+      if (mounted) {
+        setState(() => _isVisible = true);
+      }
     });
 
-    // Navigate to home after 3.2 sec (if no update is blocking)
     Timer(const Duration(milliseconds: 3200), () {
-      if (_updateInfo?.updateAvailability !=
-          UpdateAvailability.updateAvailable) {
+      if (!mounted) return;
+      if (!_isForceUpdateVisible &&
+          _updateInfo?.updateAvailability !=
+              UpdateAvailability.updateAvailable) {
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => ProfilePage()),
           (route) => false,
@@ -70,22 +75,74 @@ class _SplashScreenState extends State<SplashScreen>
     });
   }
 
-  /// 🔹 Check for Play Store app update
+  Future<void> _showForceUpdateDialog() async {
+    if (!mounted || _isForceUpdateVisible) return;
+    _isForceUpdateVisible = true;
+
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) {
+        return PopScope(
+          canPop: false,
+          child: AlertDialog(
+            title: const Text('Update Required'),
+            content: const Text(
+              'A newer version of Divine Campus is available on the Play Store. Please update to continue.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: _triggerUpdate,
+                child: const Text('Update Now'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _openPlayStoreListing() async {
+    const appId = 'com.divine.campus';
+    final marketUri = Uri.parse('market://details?id=$appId');
+    final webUri = Uri.parse(
+      'https://play.google.com/store/apps/details?id=$appId',
+    );
+
+    if (await canLaunchUrl(marketUri)) {
+      await launchUrl(marketUri, mode: LaunchMode.externalApplication);
+      return;
+    }
+
+    await launchUrl(webUri, mode: LaunchMode.externalApplication);
+  }
+
+  Future<void> _triggerUpdate() async {
+    if (Platform.isAndroid) {
+      try {
+        await InAppUpdate.performImmediateUpdate();
+        return;
+      } catch (e) {
+        debugPrint('Immediate update failed, opening Play Store: $e');
+      }
+    }
+
+    await _openPlayStoreListing();
+  }
+
   Future<void> _checkForUpdate() async {
+    if (!Platform.isAndroid) return;
+
     try {
       final info = await InAppUpdate.checkForUpdate();
+      if (!mounted) return;
       setState(() => _updateInfo = info);
 
       if (info.updateAvailability == UpdateAvailability.updateAvailable) {
-        // Immediate update = user must update before using app
-        await InAppUpdate.performImmediateUpdate();
-
-        // 👉 Or, if you prefer flexible update (downloads in background):
-        // await InAppUpdate.startFlexibleUpdate();
-        // await InAppUpdate.completeFlexibleUpdate();
+        await _showForceUpdateDialog();
       }
     } catch (e) {
-      debugPrint("Update check failed: $e");
+      debugPrint('Update check failed: $e');
     }
   }
 
@@ -109,7 +166,7 @@ class _SplashScreenState extends State<SplashScreen>
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Image.asset(
-                    "assets/images/splash/splashlogo.png",
+                    'assets/images/splash/splashlogo.png',
                     width: 200,
                     height: 200,
                   ),
@@ -117,7 +174,7 @@ class _SplashScreenState extends State<SplashScreen>
               ),
               const SizedBox(height: 20),
               const Text(
-                "Limitless Devotion To God",
+                'Limitless Devotion To God',
                 style: TextStyle(
                   fontFamily: 'Jost',
                   fontSize: 25.0,
